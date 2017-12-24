@@ -70,6 +70,7 @@
 	<script language="JavaScript">
 		function take_save() {
 		    alert("saving");
+			SaveSnap();
 		}
 
 		function take_exit() {
@@ -108,8 +109,10 @@
 		    formdata.append("base64image", file);
 		    var ajax = new XMLHttpRequest();
 		    ajax.addEventListener("load", function(event) { uploadcomplete(event);}, false);
-		    ajax.open("POST", "getPhotofromApplet?id="+id);
+		    ajax.open("POST", "http://card.tacademy.local:8070/getPhotofromApplet?id=201700001");
+		    //ajax.open("POST", ."http://card.tacademy.local:8070/hscard/getPhotofromApplet?id="+id);
 		    ajax.send(formdata);
+			alert("end");
 		}
 	</script>
 
