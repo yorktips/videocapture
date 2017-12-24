@@ -63,7 +63,7 @@
 		<input type=button id="Capture" value="Capture" onClick="take_snapshot()">
 		<input type=button id="Save" value="Save" onClick="take_save()">
 		<input type=button id="Exit" value="Exit" onClick="take_exit()">
-		Student ID: <input type="text" name="id">
+		Student ID: <input type="text" id="studid" name="id">
 	</form>
 
 	<!-- Code to handle taking the snapshot and displaying it locally -->
@@ -98,18 +98,19 @@
 		function SaveSnap(){
 
 		    Webcam.freeze();
-
 			// swap buttons back
 			//document.getElementById('Capture').style.display = '';
 			//document.getElementById('Capture').style.display = 'none';
-
+			var id=document.getElementById("studid").value;
+			alert(id);
 		    //document.getElementById("loading").innerHTML="Saving, please wait...";
 		    var file =  document.getElementById("base64image").src;
 		    var formdata = new FormData();
 		    formdata.append("base64image", file);
+			
 		    var ajax = new XMLHttpRequest();
 		    ajax.addEventListener("load", function(event) { uploadcomplete(event);}, false);
-		    ajax.open("POST", "http://card.tacademy.local:8070/getPhotofromApplet?id=201700001");
+		    ajax.open("POST", "http://card.tacademy.local:8070/getPhotofromApplet?id="+id);
 		    //ajax.open("POST", ."http://card.tacademy.local:8070/hscard/getPhotofromApplet?id="+id);
 		    ajax.send(formdata);
 			alert("end");
