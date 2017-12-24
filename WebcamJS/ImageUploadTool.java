@@ -1,4 +1,4 @@
-package com.tct;
+package tct;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -6,8 +6,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Base64;
-
+//import java.util.Base64;
+import javax.xml.bind.DatatypeConverter;
 import javax.imageio.ImageIO;
 
 public class ImageUploadTool {
@@ -61,9 +61,12 @@ public class ImageUploadTool {
 		if (data == null)
 			return null;
 
-		String encodedStr = Base64.getEncoder().encodeToString(data);
+		
 		String head = "data:image\\/png;base64,";
-
+		//String encodedStr = Base64.getEncoder().encodeToString(data);
+		//byte[] data = "hello world".getBytes("UTF-8");
+		String encodedStr = DatatypeConverter.printBase64Binary(data);
+		System.out.println(encodedStr);
 		return head + encodedStr;
 	}
 
@@ -87,10 +90,15 @@ public class ImageUploadTool {
 		if (idx > 10 && idx < 1000) {
 			imgBuf = str.toString().substring(idx + BASE64KEYWORD.length());
 			imgBuf = imgBuf.split("\n")[0];
-			return Base64.getDecoder().decode(imgBuf);
+			//return Base64.getDecoder().decode(imgBuf);
+			return DatatypeConverter.parseBase64Binary(imgBuf);
+
+			// => hello world
 		}
 
 		return data;
 	}
 
 }
+
+
